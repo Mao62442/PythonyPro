@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>部門追加</title>
+    <link rel="stylesheet" href="{% static 'bootstrap-3.4.1-dist/css/bootstrap.min.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">部門追加</div>
+            <div class="panel-body">
+                <form class="form-inline" method="post" action="/add/depart/">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label class="sr-only">ID</label>
+                        <input type="text" class="form-control" placeholder="ID" name="id" />
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only">部門名称</label>
+                        <input type="text" class="form-control" placeholder="部門名称" name="title" />
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only">人数</label>
+                        <input type="text" class="form-control" placeholder="人数" name="count" />
+                    </div>
+                    <button type="submit" class="btn btn-success">登録</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
