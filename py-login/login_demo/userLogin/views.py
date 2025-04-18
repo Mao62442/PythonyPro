@@ -29,6 +29,6 @@ def userlogin(request):
 
 def home(request):
     info_session = request.session.get("info")
-    if not info_session:
-        return render(request, 'login.html')
+    # if not info_session:
+    #     return render(request, 'login.html')
     return render(request,"home.html",{"info_session":info_session})
