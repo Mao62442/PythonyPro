@@ -32,3 +32,6 @@ def home(request):
     # if not info_session:
     #     return render(request, 'login.html')
     return render(request,"home.html",{"info_session":info_session})
+
+def order(request):
+    return render(request, "order.html")
