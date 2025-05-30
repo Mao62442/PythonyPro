@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div style="margin-bottom: 10px">
+        <a href="/add/user" class="btn btn-success">User Add</a>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>名前</th>
+            <th>年齢</th>
+            <th>給料</th>
+            <th>部門名称</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in querySet %}
+        <tr>
+            <td>{{ row.id }}</td>
+            <td>{{ row.name }}</td>
+            <td>{{ row.age }}</td>
+            <td>{{ row.salary }}円</td>
+            <td>{{ row.depart.title }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
