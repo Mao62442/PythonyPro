@@ -1,0 +1,30 @@
+{% extends  "layout.html" %}
+
+{% block content %}
+    <div style="margin-bottom: 10px">
+        <a href="/add/depart" class="btn btn-success">Add Department</a>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Brand</th>
+                <th>Place</th>
+                <th>Operate</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for row in querySet %}
+            <tr>
+                <td>{{ row.id }}</td>
+                <td>{{ row.title }}</td>
+                <td>{{ row.count }}</td>
+                <td>
+                    <a href="/edit/depart/?did={{ row.id }}">Edit</a>
+                    <a href="/delete/depart/?did={{ row.id }}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <form method="post" novalidate>
+        {% csrf_token %}
+{#        <p>#}
+{#            {{ form.title.label }}：{{ form.title }}#}
+{#            <span>{{ form.title.errors.0 }}</span>#}
+{#        </p>#}
+{#        <p>#}
+{#            {{ form.count.label }}：{{ form.count }}#}
+{#            <span>{{ form.count.errors.0 }}</span>#}
+{#        </p>#}
+            {% for field in form %}
+                <p>
+                    {{ field.label }}：{{ field }}
+                    <span>{{ field.errors.0 }}</span>
+                </p>
+            {% endfor %}
+        <input type="submit" value="Save">
+    </form>
+{% endblock %}
