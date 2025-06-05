@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div style="margin-bottom: 10px">
+        <a class="btn btn-success" href="/admin/add/">
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>  新規登録
+        </a>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ユーザー名</th>
+            <th>性別</th>
+            <th>年齢</th>
+            <th>部門</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in queryset %}
+            <tr>
+                <td>{{ row.username }}</td>
+                <td>{{ row.get_gender_display }}</td>
+                <td>{{ row.age }}</td>
+                <td>{{ row.department.title }}</td>
+                <td>
+                    <a class="btn btn-primary btn-xs" href="/admin/edit/{{ row.id }}/">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>  編集
+                    </a>
+                    <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal" onclick="deleteAction({{ row.id }})">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>  削除
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <style>
+        #myModal .modal-content {
+            background-color: transparent;
+            box-shadow: none;
+            border: none;
+        }
+    </style>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert"></button>
+                    <h4>該当ユーザーの情報を削除しますか？</h4>
+                    <p style="margin: 20px 0">
+                        削除したあとは、回復できないため、操作を続きますか？
+                    </p>
+                    <p>
+                        <button type="button" class="btn btn-danger" onclick="confirmDelete()">削　除</button>
+                        <button type="button" class="btn btn-default" onclick="cancelDelete()">キャンセル</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        DELETE_ID = 0
+        function deleteAction(id) {
+            DELETE_ID = id;
+        }
+
+        function confirmDelete() {
+            $.ajax({
+                url: '/admin/delete/',
+                type: 'GET',
+                data: {
+                    id: DELETE_ID
+                },
+                dataType: 'JSON',
+                success: function (res) {
+                    if(res.status) {
+                        location.reload()
+                    } else {
+                        alert(res.error)
+                    }
+                }
+            })
+        }
+
+        function cancelDelete() {
+            DELETE_ID = 0;
+            $('#myModal').modal('hide');
+        }
+    </script>
+{% endblock %}
