@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ホルマリン監視システム</title>
-    <link rel="stylesheet" href="css/home.css">
-    <script async src="js/home.js"></script>
+    <link href="/static/css/home.css" rel="stylesheet">
+    <script src="/static/js/home.js" defer></script>
 </head>
 <body>
 <div class="container">
@@ -13,10 +13,11 @@
         <div style="text-align: left; font-size: 0.8em; color: #888; margin-bottom: 10px;">ホルマリン監視システム</div>
         <h1>S1 病理診断室</h1>
         <div class="current-data">
-            <div>現時点ホルムアルデヒド濃度 : 0.02 [PPM]</div>
-            <div>現時点温度 : 28°C
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                現時点湿度 : 70%
+            <div>現時点ホルムアルデヒド濃度 : <span id="formaldehyde">---</span> [PPM]</div>
+            <div>
+                現時点温度 : <span id="temperature">---</span> °C
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                現時点湿度 : <span id="humidity">---</span> %
             </div>
         </div>
     </div>
