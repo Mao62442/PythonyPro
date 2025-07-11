@@ -6,6 +6,7 @@
     <title>ホルマリン監視システム</title>
     <link href="/static/css/home.css" rel="stylesheet">
     <script src="/static/js/home.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <div class="container">
@@ -30,6 +31,7 @@
             </div>
             <div class="graph-placeholder">
                 <span>グラフのプレースホルダー</span>
+                <canvas id="chart-formaldehyde"></canvas>
             </div>
             <div class="legend">
                 <div class="legend-item"><span class="legend-color color-blue"></span><span>最高</span></div>
@@ -43,6 +45,7 @@
             </div>
             <div class="graph-placeholder">
                 <span>グラフのプレースホルダー</span>
+                <canvas id="chart-placeholder"></canvas>
             </div>
             <div class="legend">
                 <div class="legend-item"><span class="legend-color color-blue"></span><span>最高</span></div>
@@ -56,6 +59,7 @@
             </div>
             <div class="graph-placeholder">
                 <span>グラフのプレースホルダー</span>
+                <canvas id="chart-humidity"></canvas>
             </div>
             <div class="legend">
                 <div class="legend-item"><span class="legend-color color-blue"></span><span>最高</span></div>
