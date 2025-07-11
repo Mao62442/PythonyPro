@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ホルマリン監視システム</title>
+    <link rel="stylesheet" href="css/home.css">
+    <script async src="js/home.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div style="text-align: left; font-size: 0.8em; color: #888; margin-bottom: 10px;">ホルマリン監視システム</div>
+        <h1>S1 病理診断室</h1>
+        <div class="current-data">
+            <div>現時点ホルムアルデヒド濃度 : 0.02 [PPM]</div>
+            <div>現時点温度 : 28°C
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                現時点湿度 : 70%
+            </div>
+        </div>
+    </div>
+
+    <div class="graph-section">
+        <div class="graph-container">
+            <h3>ホルムアルデヒド濃度</h3>
+            <div style="text-align: center; width: 100%; font-size: 0.8em; color: #666; margin-bottom: 10px;">
+                ホルムアルデヒド濃度[PPM]
+            </div>
+            <div class="graph-placeholder">
+                <span>グラフのプレースホルダー</span>
+            </div>
+            <div class="legend">
+                <div class="legend-item"><span class="legend-color color-blue"></span><span>最高</span></div>
+                <div class="legend-item"><span class="legend-color color-orange"></span><span>最低</span></div>
+            </div>
+        </div>
+
+        <div class="graph-container">
+            <h3>温度</h3>
+            <div style="text-align: center; width: 100%; font-size: 0.8em; color: #666; margin-bottom: 10px;">温度[℃]
+            </div>
+            <div class="graph-placeholder">
+                <span>グラフのプレースホルダー</span>
+            </div>
+            <div class="legend">
+                <div class="legend-item"><span class="legend-color color-blue"></span><span>最高</span></div>
+                <div class="legend-item"><span class="legend-color color-orange"></span><span>最低</span></div>
+            </div>
+        </div>
+
+        <div class="graph-container">
+            <h3>湿度</h3>
+            <div style="text-align: center; width: 100%; font-size: 0.8em; color: #666; margin-bottom: 10px;">湿度[%]
+            </div>
+            <div class="graph-placeholder">
+                <span>グラフのプレースホルダー</span>
+            </div>
+            <div class="legend">
+                <div class="legend-item"><span class="legend-color color-blue"></span><span>最高</span></div>
+                <div class="legend-item"><span class="legend-color color-orange"></span><span>最低</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CSV データ監視</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+
+        #chart-container {
+            width: 80%;
+            height: 400px;
+            margin-top: 20px;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        canvas {
+            width: 100% !important;
+            height: 250px !important;
+        }
+    </style>
+</head>
+<body>
+<h2>CSV データ監視</h2>
+<button onclick="toggleView()">表示切り替え</button>
+<div id="table-view" style="margin-top: 15px">
+    <table id="data-table">
+        <thead id="table-head"></thead>
+        <tbody id="table-body"></tbody>
+    </table>
+</div>
+
+<div id="chart-container" style="display: none;">
+    <div id="charts" class="charts-grid"></div>
+</div>
+
+<script>
+
+    function getColor(index) {
+        const colors = ["red", "blue", "green", "orange", "purple", "teal"];
+        return colors[index % colors.length];
+    }
+
+    const ws = new WebSocket(`ws://${location.host}/ws`);
+    let isTableView = true;
+    let chart;
+    let labels = [], chartData = [];
+
+    ws.onmessage = function (event) {
+        const data = JSON.parse(event.data);
+        updateTable(data);
+        updateChart(data)
+    };
+
+    function updateTable(data) {
+        const thead = document.getElementById("table-head");
+        const tbody = document.getElementById("table-body");
+        thead.innerHTML = "<tr>" + data.columns.map(col => `<th>${col}</th>`).join('') + "</tr>";
+        tbody.innerHTML = data.rows.map(row => "<tr>" + row.map(cell => `<td>${cell}</td>`).join('') + "</tr>").join('');
+    }
+
+    let charts = [];
+
+    function updateChart(data) {
+        if (!data.rows.length) return;
+
+        const labels = data.rows.map(row => row[0]);
+        const chartArea = document.getElementById("charts");
+        charts.forEach(c => c.destroy());
+        charts = [];
+
+        for (let col = 1; col < data.columns.length; col++) {
+            const canvas = document.createElement("canvas");
+            canvas.id = `chart-${col}`;
+            canvas.style.marginTop = "30px";
+            chartArea.appendChild(canvas);
+
+            const values = data.rows.map(row => parseFloat(row[col]) || 0);
+            const ctx = document.getElementById(`chart-${col}`).getContext('2d');
+
+            const newChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: data.columns[col],
+                        data: values,
+                        fill: false,
+                        borderColor: getColor(col),
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    animation: false,
+                    scales: {
+                        y: {beginAtZero: false}
+                    }
+                }
+            });
+
+            charts.push(newChart);
+        }
+    }
+
+    function toggleView() {
+        isTableView = !isTableView;
+        document.getElementById("table-view").style.display = isTableView ? "block" : "none";
+        document.getElementById("chart-container").style.display = isTableView ? "none" : "block";
+    }
+</script>
+</body>
+</html>
