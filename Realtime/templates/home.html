@@ -7,6 +7,8 @@
     <link href="/static/css/home.css" rel="stylesheet">
     <script src="/static/js/home.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon"></script>
 </head>
 <body>
 <div class="container">
@@ -25,12 +27,8 @@
 
     <div class="graph-section">
         <div class="graph-container">
-            <h3>ホルムアルデヒド濃度</h3>
-            <div style="text-align: center; width: 100%; font-size: 0.8em; color: #666; margin-bottom: 10px;">
-                ホルムアルデヒド濃度[PPM]
-            </div>
+            <h3>ホルムアルデヒド濃度[PPM]</h3>
             <div class="graph-placeholder">
-                <span>グラフのプレースホルダー</span>
                 <canvas id="chart-formaldehyde"></canvas>
             </div>
             <div class="legend">
@@ -40,12 +38,9 @@
         </div>
 
         <div class="graph-container">
-            <h3>温度</h3>
-            <div style="text-align: center; width: 100%; font-size: 0.8em; color: #666; margin-bottom: 10px;">温度[℃]
-            </div>
+            <h3>温度[℃]</h3>
             <div class="graph-placeholder">
-                <span>グラフのプレースホルダー</span>
-                <canvas id="chart-placeholder"></canvas>
+                <canvas id="chart-temperature"></canvas>
             </div>
             <div class="legend">
                 <div class="legend-item"><span class="legend-color color-blue"></span><span>最高</span></div>
@@ -54,11 +49,8 @@
         </div>
 
         <div class="graph-container">
-            <h3>湿度</h3>
-            <div style="text-align: center; width: 100%; font-size: 0.8em; color: #666; margin-bottom: 10px;">湿度[%]
-            </div>
+            <h3>湿度[%]</h3>
             <div class="graph-placeholder">
-                <span>グラフのプレースホルダー</span>
                 <canvas id="chart-humidity"></canvas>
             </div>
             <div class="legend">
