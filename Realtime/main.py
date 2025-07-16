@@ -13,7 +13,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 
-def read_latest_data():
+def read_now_data():
     try:
         with open("data/now_data.csv", newline='', encoding='utf-8') as f:
             rows = list(csv.DictReader(f))
@@ -36,13 +36,13 @@ async def get_home(request: Request):
     return templates.TemplateResponse("home.html", {"request": request})
 
 
-@app.websocket("/ws/last_data")
+@app.websocket("/ws/now_data")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     prev_data = None  # 前回のデータを保存
     try:
         while True:
-            data = read_latest_data()
+            data = read_now_data()
 
             # 前回と違う場合のみ送信
             if data != prev_data:

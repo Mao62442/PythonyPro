@@ -137,3 +137,27 @@ canvas {
     width: 100% !important;
     height: 250px !important;
 }
+
+.alert-display {
+    position: absolute;
+    top: -160%;
+    right: 13%;
+    z-index: 10;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 5px;
+}
+
+#alert-icon {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}

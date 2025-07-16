@@ -87,14 +87,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     // WebSocket接続
-    const ws = new WebSocket("ws://" + window.location.host + "/ws/history");
+    const ws_history_data = new WebSocket("ws://" + window.location.host + "/ws/history");
+    const ws_now_data = new WebSocket("ws://" + window.location.host + "/ws/now_data");
 
-    ws.onopen = () => console.log("✅ WebSocket接続成功 (History)");
-    ws.onerror = err => console.error("❌ WebSocketエラー:", err);
-    ws.onclose = () => console.warn("🔌 WebSocket切断");
+    ws_history_data.onopen = () => console.log("✅ WebSocket接続成功 (History)");
+    ws_history_data.onerror = err => console.error("❌ WebSocketエラー:", err);
+    ws_history_data.onclose = () => console.warn("🔌 WebSocket切断");
+
+    ws_now_data.onopen = () => console.log("✅ WebSocket接続成功 (Now)");
+    ws_now_data.onerror = err => console.error("❌ WebSocketエラー:", err);
+    ws_now_data.onclose = () => console.warn("🔌 WebSocket切断");
 
     // サーバーからメッセージを受信したときの処理
-    ws.onmessage = function (event) {
+    ws_history_data.onmessage = function (event) {
         const json = JSON.parse(event.data);
         const historyData = json.data; // { "data": [...] } の "data" 配列を取得
 
@@ -102,12 +107,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             console.log("データが空です。");
             return;
         }
-
-        // 最新のデータを取得して上部の数値を更新
-        const latestData = historyData[historyData.length - 1];
-        document.getElementById("formaldehyde").innerText = latestData.formaldehyde || "---";
-        document.getElementById("temperature").innerText = latestData.temperature || "---";
-        document.getElementById("humidity").innerText = latestData.humidity || "---";
 
         // グラフ用のデータを作成
         const formaldehydeData = [];
@@ -133,4 +132,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
         chartTemperature.update();
         chartHumidity.update();
     };
+
+    ws_now_data.onmessage = function (event) {
+        const nowDataJson = JSON.parse(event.data);
+        document.getElementById("formaldehyde").innerText = nowDataJson.formaldehyde || "---";
+        document.getElementById("temperature").innerText = nowDataJson.temperature || "---";
+        document.getElementById("humidity").innerText = nowDataJson.humidity || "---";
+
+        const alert_corner = document.getElementById("alert-corner");
+        if(nowDataJson.formaldehyde >= 0.03) {
+            alert_corner.innerHTML = `
+                <p style="color: red; font-weight: bold;">濃度基準値オーバー</p>
+                <img id="alert-icon" src="../static/img/alert.png"/>`
+        } else {
+            const alert_corner = document.getElementById("alert-corner");
+            alert_corner.innerHTML = ``
+        }
+    }
+
 });
