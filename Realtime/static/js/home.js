@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const alert_corner = document.getElementById("alert-corner");
         if(nowDataJson.formaldehyde >= 0.03) {
             alert_corner.innerHTML = `
-                <p style="color: red; font-weight: bold;">濃度基準値オーバー</p>
+                <p style="color: red; font-weight: bold; margin-bottom: 10px;">濃度基準値オーバー</p>
                 <img id="alert-icon" src="../static/img/alert.png"/>`
         } else {
             const alert_corner = document.getElementById("alert-corner");
